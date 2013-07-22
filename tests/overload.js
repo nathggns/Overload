@@ -30,28 +30,6 @@ describe('overload', function() {
             res.should.eql('def');
         });
 
-        it('should be able to "protect" a method by passing in a condition with no method', function() {
-            var obj = {};
-
-            var called = false;
-
-            overload.add(obj, 'work', function(method, args) {
-                return args.length === 0;
-            }, function() {
-                called = true;
-            });
-
-            overload.add(obj, 'work', function() {
-                // You'd do some protection condition stuff here,
-                // return true to stop the execution chain.
-                return true;
-            });
-
-            obj.work();
-
-            called.should.eql(false);
-        });
-
         it('should pass in arguments to the condition', function() {
             var obj = {};
 
@@ -59,7 +37,7 @@ describe('overload', function() {
 
             overload.add(obj, 'work', function(method, args) {
                 _args = args;
-            });
+            }, function() {});
 
             var args = ['a', {}, function(){}, Math.random()];
 
@@ -112,6 +90,24 @@ describe('overload', function() {
             overload.add(obj, 'work');
 
             obj.work();
+        });
+
+        it('should be able to pull arity from the function definition', function() {
+            var obj = {};
+            var i = 0;
+
+            overload.add(obj, 'work', function(one) {
+                i++;
+            });
+
+            overload.add(obj, 'work', function(one, two) {
+                i += 2;
+            });
+
+            obj.work('one');
+            obj.work('one', 'two');
+
+            i.should.eql(3);
         });
     });
 });

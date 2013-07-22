@@ -1,5 +1,6 @@
 {
-  "name": "overload",
+  "name": "node-overload",
+  "title": "overload",
   "description": "Overload methods based on argument length or arbitrary conditions",
   "version": "1.0.0",
   "repository": {
@@ -24,12 +25,12 @@
     "url": "http://nath.is"
   },
   "bugs": {
-    "url": "https://github.com/nathggns/Overload.js/issues"
+    "url": "https://github.com/nathggns/Overload/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/nathggns/Overload.js/blob/master/LICENSE-MIT"
+      "url": "https://github.com/nathggns/Overload/blob/master/LICENSE-MIT"
     }
   ],
   "engines": {

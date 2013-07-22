@@ -126,6 +126,23 @@
     });
 
     /**
+     * Handle pulling arity from the method defintion itself
+     */
+    overload(exports, 'add', function(method, args) {
+        return args.length === 3 && typeof args[2] === 'function';
+    }, function() {
+        var args = arguments;
+
+        Array.prototype.push.call(args, args[2]);
+
+        args[2] = function(method, args) {
+            return method.length === args.length;
+        };
+
+        return overload.apply(this, args);
+    });
+
+    /**
      * Handle calls to the method when the condition is simply a number.
      * This is just a shortcut for testing argument length
      */
