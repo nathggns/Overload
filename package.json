@@ -17,9 +17,7 @@
     "grunt-mocha-cli": "~1.0.6",
     "grunt-cli": "~0.1.7"
   },
-  "dependencies": {
-    "heir": "git+ssh://git@github.com:nathggns/Heir.git#b686bf3c4e1ee35bc045528be40deaeec4fe3d9c"
-  },
+  "dependencies": {},
   "author": {
     "name": "Nathaniel Higgins",
     "email": "nat@nath.is",
