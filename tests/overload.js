@@ -2,9 +2,9 @@ var overload = require('../src/overload');
 var should = require('should');
 
 describe('overload', function() {
-    describe('inherit', function() {
+    describe('add', function() {
         it('should exist', function() {
-            overload.should.have.property('inherit');
+            overload.should.have.property('add');
         });
 
         it('should work', function() {
@@ -12,13 +12,13 @@ describe('overload', function() {
 
             var res;
 
-            overload.inherit(obj, 'work', function() {
+            overload.add(obj, 'work', function() {
                 return typeof res === 'undefined';
             }, function() {
                 res = 'abc';
             });
 
-            overload.inherit(obj, 'work', function() {
+            overload.add(obj, 'work', function() {
                 return res === 'abc';
             }, function() {
                 res = 'def';
@@ -35,13 +35,13 @@ describe('overload', function() {
 
             var called = false;
 
-            overload.inherit(obj, 'work', function(method, args) {
+            overload.add(obj, 'work', function(method, args) {
                 return args.length === 0;
             }, function() {
                 called = true;
             });
 
-            overload.inherit(obj, 'work', function() {
+            overload.add(obj, 'work', function() {
                 // You'd do some protection condition stuff here,
                 // return true to stop the execution chain.
                 return true;
@@ -57,7 +57,7 @@ describe('overload', function() {
 
             var _args;
 
-            overload.inherit(obj, 'work', function(method, args) {
+            overload.add(obj, 'work', function(method, args) {
                 _args = args;
             });
 
@@ -73,11 +73,11 @@ describe('overload', function() {
 
             var i = 0;
 
-            overload.inherit(obj, 'work', 0, function() {
+            overload.add(obj, 'work', 0, function() {
                 i++;
             });
 
-            overload.inherit(obj, 'work', 1, function() {
+            overload.add(obj, 'work', 1, function() {
                 i += 2;
             });
 
@@ -92,11 +92,11 @@ describe('overload', function() {
 
             var i = 0;
 
-            overload.inherit(obj, 'work', true, function() {
+            overload.add(obj, 'work', true, function() {
                 i++;
             });
 
-            overload.inherit(obj, 'work', false, function() {
+            overload.add(obj, 'work', false, function() {
                 i--;
             });
 
@@ -109,7 +109,7 @@ describe('overload', function() {
         it('should work as a "catch" when there are no methods', function() {
             var obj = {};
 
-            overload.inherit(obj, 'work');
+            overload.add(obj, 'work');
 
             obj.work();
         });

@@ -88,7 +88,7 @@
     /**
      * Handle normal calls to the method
      */
-    overload(exports, 'inherit', function() {
+    overload(exports, 'add', function() {
         return true;
     }, function() {
         return overload.apply(this, arguments);
@@ -97,7 +97,7 @@
     /**
      * If condition is simply a value, we'll wrap that value in a function
      */
-    overload(exports, 'inherit', function(method, args) {
+    overload(exports, 'add', function(method, args) {
         return typeof args[2] !== 'function';
     }, function() {
         var args = arguments;
@@ -114,7 +114,7 @@
      * Handles calls when there is no condition,
      * using overload as a "catch"
      */
-    overload(exports, 'inherit', function(method, args) {
+    overload(exports, 'add', function(method, args) {
         return args.length < 3 || typeof args[2] === 'undefined';
     }, function() {
         var args = arguments;
@@ -134,7 +134,7 @@
      * Handle calls to the method when the condition is simply a number.
      * This is just a shortcut for testing argument length
      */
-    overload(exports, 'inherit', function(method, args) {
+    overload(exports, 'add', function(method, args) {
         return typeof args[2] === 'number';
     }, function() {
         var args = arguments;
