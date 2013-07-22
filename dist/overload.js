@@ -45,34 +45,100 @@
     // For tests
     exports.heir = heir;
 
-    // This is the function that does the actual overloading, we'll use this internally too!
+    /**
+     * Overload a method
+     * @param  {object}   object    The object to overload the method on
+     * @param  {string}   name      The name of the method
+     * @param  {Function} condition The function to determine if this is the method to use
+     * @param  {Function} method    The method to call. Optional. If not passed, it will simply
+     *                              stop the overload chain
+     */
     var overload = function(object, name, condition, method) {
-        var old = object[name] || function(){};
+        /**
+         * Save a reference to the previous overloaded method
+         */
+        var old = object[name];
 
         object[name] = function() {
 
             var callee;
 
+            if (!condition) {
+                var stack = new Error().stack;
+                console.log(stack);
+            }
+
+            /**
+             * If the condition passes, we want to apply the method
+             */
             if (condition.call(object, method, arguments)) {
                 callee = method;
             } else {
                 callee = old;
             }
 
-            return callee.apply(method, arguments);
+            /**
+             * Only call the callee if we have a callee to call.
+             * This won't happen if no method is passed in, or
+             * if the condition failed and we're the first method in the chain
+             */
+            if (typeof callee === 'function') {
+                return callee.apply(method, arguments);
+            }
         };
     };
 
+    /**
+     * Handle normal calls to the method
+     */
     overload(exports, 'inherit', function() {
         return true;
     }, function() {
         return overload.apply(this, arguments);
     });
 
+    /**
+     * If condition is simply a value, we'll wrap that value in a function
+     */
     overload(exports, 'inherit', function(method, args) {
-        if (typeof args[2] === 'number') {
-            return true;
-        }
+        return typeof args[2] !== 'function';
+    }, function() {
+        var args = arguments;
+        var val = arguments[2];
+
+        args[2] = function() {
+            return val;
+        };
+
+        return overload.apply(this, args);
+    });
+
+    /**
+     * Handles calls when there is no condition,
+     * using overload as a "catch"
+     */
+    overload(exports, 'inherit', function(method, args) {
+        return args.length < 3 || typeof args[2] === 'undefined';
+    }, function() {
+        var args = arguments;
+
+        /**
+         * We have to use Array.push otherwise weird stuff happens
+         * @see http://jsfiddle.net/DVvPv/1/
+         */
+        Array.prototype.push.call(args, function() {
+            return false;
+        });
+
+        return overload.apply(this, args);
+    });
+
+    /**
+     * Handle calls to the method when the condition is simply a number.
+     * This is just a shortcut for testing argument length
+     */
+    overload(exports, 'inherit', function(method, args) {
+        return typeof args[2] === 'number';
     }, function() {
         var args = arguments;
         var num = arguments[2];
