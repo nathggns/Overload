@@ -1,23 +1,40 @@
 (function (root, name, dependencies, factory) {
-
     'use strict';
 
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
-        define(name, ['exports'].concat(dependencies), factory);
-    } else if (typeof exports === 'object') {
+        Array.prototype.unshift.call(dependencies, 'exports');
+
+        return define(name, dependencies, factory);
+    }
+
+    var merged = [];
+    var merger;
+
+    if (typeof exports === 'object') {
         // CommonJS
-        factory.apply(root, [exports].concat(dependencies.map(function(dependency) {
+        merger = function(dependency) {
             return require(dependency);
-        })));
+        };
+
+        merged.push(exports);
     } else {
         // Browser globals
-        factory.apply(root, [root[name] = {}].concat(dependencies.map(function(dependency) {
+        merger = function(dependency) {
             return root[dependency];
-        })));
-    }
-}(this, 'extend', ['heir'], function (exports, heir) {
+        };
 
+        merged.push(root[name] = {});
+    }
+
+    for (var i = 0, l = dependencies.length; i < l; i++) {
+        if (Object.prototype.hasOwnProperty.call(dependencies, i)) {
+            merged.push(merger.call(merged, dependencies[i]));
+        }
+    }
+
+    return factory.apply(root, merged);
+}(this, 'extend', ['heir'], function (exports, heir) {
     'use strict';
 
     // For tests
