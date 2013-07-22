@@ -39,7 +39,7 @@
     }
 
     return factory.apply(root, merged);
-}(this, 'extend', ['heir'], function (exports, heir) {
+}(this, 'overload', ['heir'], function (exports, heir) {
     'use strict';
 
     // For tests
