@@ -1,5 +1,5 @@
 /*!
- * overload v1.0.0
+ * overload v1.0.1
  * Copyright (c) 2013 Nathaniel Higgins; Licensed MIT
  * Built on 2013-07-22 
  */

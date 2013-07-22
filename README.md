@@ -5,7 +5,7 @@ Allow overloading of methods using arbitrary conditions, including shorcuts for 
 ## Notes
 
  - Methods are overloaded in a first-in-last-called manner. Newer functions take priority. 
- - Only one function will ever be called per manner. Returning `true` from a condition stops the chain.
+ - Only one function will ever be called per method. Returning `true` from a condition stops the chain.
  - Much of the functionality you see here was implemented using Overload. Use it on itself!
 
 # Todo
