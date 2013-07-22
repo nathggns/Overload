@@ -3,7 +3,7 @@ var should = require('should');
 
 describe('overload', function() {
     describe('inherit', function() {
-        it('it should exist', function() {
+        it('should exist', function() {
             overload.should.have.property('inherit');
         });
     });
