@@ -4,7 +4,9 @@ var heir = require('heir');
 
 describe('overload', function() {
     describe('custom-umd', function() {
-        overload.should.have.property('heir');
-        overload.heir.should.eql(heir);
+        it('should work with dependencies', function() {
+            overload.should.have.property('heir');
+            overload.heir.should.eql(heir);
+        });
     });
 });
