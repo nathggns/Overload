@@ -39,11 +39,8 @@
     }
 
     return factory.apply(root, merged);
-}(this, 'overload', ['heir'], function (exports, heir) {
+}(this, 'overload', [], function (exports) {
     'use strict';
-
-    // For tests
-    exports.heir = heir;
 
     /**
      * Overload a method
