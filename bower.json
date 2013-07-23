@@ -1,0 +1,12 @@
+{
+  "name": "overload",
+  "version": "1.0.1",
+  "main": "dist/overload.min.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
