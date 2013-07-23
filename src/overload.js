@@ -38,6 +38,28 @@
     'use strict';
 
     /**
+     * Polyfill for Function.prototype.bind
+     * Expects to be called in the context of the function
+     */
+    exports._bind = function() {
+        var args = Array.prototype.slice.call(arguments);
+        var _this = args.shift();
+        var fn = this;
+        var fnIO = function() {};
+
+        var retval = function() {
+            return fn.apply(
+                this instanceof fnIO && _this ? this : _this,
+                args.concat(Array.prototype.slice.call(arguments))
+            );
+        };
+
+        return retval;
+    };
+
+    Function.prototype.bind = Function.prototype.bind || exports._bind;
+
+    /**
      * Overload a method
      * @param  {object}   object    The object to overload the method on
      * @param  {string}   name      The name of the method
@@ -83,6 +105,7 @@
     /**
      * Handle normal calls to the method
      */
+    // exports.add = overload.bind(exports);
     overload(exports, 'add', function() {
         return true;
     }, function() {
