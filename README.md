@@ -7,6 +7,7 @@ Allow overloading of methods using arbitrary conditions, including shorcuts for 
  - Methods are overloaded in a first-in-last-called manner. Newer functions take priority.
  - Only one function will ever be called per method. Returning `true` from a condition stops the chain.
  - Much of the functionality you see here was implemented using Overload. Use it on itself!
+ - Overload will polyfill `Function.prototype.bind` (using `overload._bind`).
 
 ## Install
 
