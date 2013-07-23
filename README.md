@@ -7,10 +7,7 @@ Allow overloading of methods using arbitrary conditions, including shorcuts for 
  - Methods are overloaded in a first-in-last-called manner. Newer functions take priority.
  - Only one function will ever be called per method. Returning `true` from a condition stops the chain.
  - Much of the functionality you see here was implemented using Overload. Use it on itself!
-
-# Todo
-
- - Access a "clean" version of the overload function (as in, the function before we extend it)
+ - Overload will polyfill `Function.prototype.bind` (using `overload._bind`).
 
 ## Install
 
@@ -103,4 +100,14 @@ bike.drive();
 
 bike.drive('one', 'two');
 // Too many people!
+```
+
+### Getting a clean version of Overload
+
+For whatever reason, you might want to extend your own shortcuts onto a clean version of Overload (the initial function before we overload it with shortcuts).
+
+You can do this quite easily with the following.
+
+```
+var clean = overload.clean();
 ```
