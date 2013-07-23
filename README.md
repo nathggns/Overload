@@ -4,7 +4,7 @@ Allow overloading of methods using arbitrary conditions, including shorcuts for 
 
 ## Notes
 
- - Methods are overloaded in a first-in-last-called manner. Newer functions take priority. 
+ - Methods are overloaded in a first-in-last-called manner. Newer functions take priority.
  - Only one function will ever be called per method. Returning `true` from a condition stops the chain.
  - Much of the functionality you see here was implemented using Overload. Use it on itself!
 
@@ -14,7 +14,7 @@ Allow overloading of methods using arbitrary conditions, including shorcuts for 
 
 ## Install
 
-Overload uses a slightly custom version of the UMD pattern, and should work in almost any situation you put it in. It supports AMD (RequireJS, etc), CommonJS (Node) and browser globals. 
+Overload uses a slightly custom version of the UMD pattern, and should work in almost any situation you put it in. It supports AMD (RequireJS, etc), CommonJS (Node) and browser globals.
 
 To install it in the browser, copy one of the two files in the `dist` folder to your project, and simply include it on your page.
 
@@ -24,6 +24,12 @@ If you're using Node, you get to install overload using npm, which is as easy as
 npm install node-overload
 ```
 
+You can also install overload using [bowser](https://github.com/bower/bower).
+
+```
+bower install overload
+```
+
 ## Usage
 
 ```js
@@ -31,7 +37,7 @@ npm install node-overload
 var Person = function() {}
 
 // Set the default method. You could also do this
-// just by setting it manually. 
+// just by setting it manually.
 overload.add(Person.prototype, 'speak', true, function() {
     console.log('Peasant! Learn to call me correctly!')
 });
@@ -44,7 +50,7 @@ overload.add(Person.prototype, 'speak', 1, function(speech) {
     console.log(speech);
 });
 
-// If we are passed an arguments saying "christmas", trigger 
+// If we are passed an arguments saying "christmas", trigger
 // an anti-fesive message
 overload.add(Person.prototype, 'speak', function(method, args) {
     return Array.prototype.indexOf.call(args, 'christmas') !== -1;
@@ -83,7 +89,7 @@ One of the best uses for this would be to use it to have different functions for
 var Bike = function() {};
 
 Bike.prototype.drive = function() {
-    console.log('Wahoo!');  
+    console.log('Wahoo!');
 };
 
 overload.add(Bike.prototype, 'drive', function(person1, person2) {
