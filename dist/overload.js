@@ -113,6 +113,14 @@
     exports.add = overload.bind(exports);
 
     /**
+     * Use this method to get a "clean" version of exports
+     * This is an unoverloaded version of the overload function
+     */
+    exports.clean = function() {
+        return overload.bind(exports);
+    };
+
+    /**
      * If condition is simply a value, we'll wrap that value in a function
      */
     overload(exports, 'add', function(method, args) {

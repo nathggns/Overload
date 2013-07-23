@@ -8,10 +8,6 @@ Allow overloading of methods using arbitrary conditions, including shorcuts for 
  - Only one function will ever be called per method. Returning `true` from a condition stops the chain.
  - Much of the functionality you see here was implemented using Overload. Use it on itself!
 
-# Todo
-
- - Access a "clean" version of the overload function (as in, the function before we extend it)
-
 ## Install
 
 Overload uses a slightly custom version of the UMD pattern, and should work in almost any situation you put it in. It supports AMD (RequireJS, etc), CommonJS (Node) and browser globals.
@@ -103,4 +99,14 @@ bike.drive();
 
 bike.drive('one', 'two');
 // Too many people!
+```
+
+### Getting a clean version of Overload
+
+For whatever reason, you might want to extend your own shortcuts onto a clean version of Overload (the initial function before we overload it with shortcuts).
+
+You can do this quite easily with the following.
+
+```
+var clean = overload.clean();
 ```
