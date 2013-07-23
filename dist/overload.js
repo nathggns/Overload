@@ -110,12 +110,7 @@
     /**
      * Handle normal calls to the method
      */
-    // exports.add = overload.bind(exports);
-    overload(exports, 'add', function() {
-        return true;
-    }, function() {
-        return overload.apply(this, arguments);
-    });
+    exports.add = overload.bind(exports);
 
     /**
      * If condition is simply a value, we'll wrap that value in a function
