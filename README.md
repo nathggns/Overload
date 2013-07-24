@@ -102,6 +102,23 @@ bike.drive('one', 'two');
 // Too many people!
 ```
 
+You can also do ranges of arity, so you can say if the method is passed two or more arguments, call a certain version of the method. This is done via the `overload.arity` method.
+
+The syntax is something like so:
+
+```js
+var two_or_more = overload.arity(2);
+var one_or_less = overload.arity(0, 1);
+
+overload(obj, 'method', one_or_less, function() {
+    // ...
+});
+
+overload(obj, 'method', two_or_more, function() {
+    // ...
+});
+```
+
 ### Getting a clean version of Overload
 
 For whatever reason, you might want to extend your own shortcuts onto a clean version of Overload (the initial function before we overload it with shortcuts).
