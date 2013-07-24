@@ -104,7 +104,7 @@ bike.drive('one', 'two');
 
 You can also do ranges of arity, so you can say if the method is passed two or more arguments, call a certain version of the method. This is done via the `overload.arity` method.
 
-The syntax is something like so:
+The syntax is like so:
 
 ```js
 var two_or_more = overload.arity(2);
