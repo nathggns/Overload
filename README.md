@@ -110,11 +110,11 @@ The syntax is something like so:
 var two_or_more = overload.arity(2);
 var one_or_less = overload.arity(0, 1);
 
-overload(obj, 'method', one_or_less, function() {
+overload.add(obj, 'method', one_or_less, function() {
     // ...
 });
 
-overload(obj, 'method', two_or_more, function() {
+overload.add(obj, 'method', two_or_more, function() {
     // ...
 });
 ```
