@@ -21,7 +21,7 @@ If you're using Node, you get to install overload using npm, which is as easy as
 npm install node-overload
 ```
 
-You can also install overload using [bowser](https://github.com/bower/bower).
+You can also install overload using [bower](https://github.com/bower/bower).
 
 ```
 bower install overload
