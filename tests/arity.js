@@ -33,5 +33,23 @@ describe('overload', function() {
             obj.work('one', 'two', 'three', 'four');
             res.should.eql(5);
         });
+
+        it('should work with saying more than or equal to', function() {
+            var obj = {};
+            var res = 0;
+
+            overload.add(obj, 'work', overload.arity(3), function() {
+                res++;
+            });
+
+            obj.work();
+            res.should.eql(0);
+
+            obj.work('one', 'two', 'three');
+            res.should.eql(1);
+
+            obj.work('one', 'two', 'three', 'four');
+            res.should.eql(2);
+        });
     });
 });
