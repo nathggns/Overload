@@ -1,7 +1,7 @@
 /*!
  * overload v1.1.0
  * Copyright (c) 2013 Nathaniel Higgins; Licensed MIT
- * Built on 2013-07-23 
+ * Built on 2013-07-24 
  */
 (function (root, name, dependencies, factory) {
     'use strict';
@@ -118,6 +118,28 @@
      */
     exports.clean = function() {
         return overload.bind(exports);
+    };
+
+    /**
+     * Shortcut for arity range conditions
+     * @param  {int}      min Min arity
+     * @param  {int}      max Max arity
+     * @return {Function}     Condition function that checks for an arity in this range.
+     */
+    var arity = exports.arity = function(min, max) {
+        return function(method, args) {
+            var res = true;
+
+            if (typeof min === 'number') {
+                res = res && args.length >= min;
+            }
+
+            if (res && typeof max === 'number') {
+                res = res && args.length <= max;
+            }
+
+            return res;
+        };
     };
 
     /**

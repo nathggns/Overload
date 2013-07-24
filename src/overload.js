@@ -116,6 +116,28 @@
     };
 
     /**
+     * Shortcut for arity range conditions
+     * @param  {int}      min Min arity
+     * @param  {int}      max Max arity
+     * @return {Function}     Condition function that checks for an arity in this range.
+     */
+    var arity = exports.arity = function(min, max) {
+        return function(method, args) {
+            var res = true;
+
+            if (typeof min === 'number') {
+                res = res && args.length >= min;
+            }
+
+            if (res && typeof max === 'number') {
+                res = res && args.length <= max;
+            }
+
+            return res;
+        };
+    };
+
+    /**
      * If condition is simply a value, we'll wrap that value in a function
      */
     overload(exports, 'add', function(method, args) {
