@@ -92,7 +92,7 @@
              * if the condition failed and we're the first method in the chain
              */
             if (typeof callee === 'function') {
-                return callee.apply(method, arguments);
+                return callee.apply(object, arguments);
             }
         };
     };

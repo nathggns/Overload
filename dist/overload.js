@@ -1,7 +1,7 @@
 /*!
  * overload v1.1.0
  * Copyright (c) 2013 Nathaniel Higgins; Licensed MIT
- * Built on 2013-07-24 
+ * Built on 2013-07-28 
  */
 (function (root, name, dependencies, factory) {
     'use strict';
@@ -82,11 +82,6 @@
 
             var callee;
 
-            if (!condition) {
-                var stack = new Error().stack;
-                console.log(stack);
-            }
-
             /**
              * If the condition passes, we want to apply the method
              */
@@ -102,7 +97,7 @@
              * if the condition failed and we're the first method in the chain
              */
             if (typeof callee === 'function') {
-                return callee.apply(method, arguments);
+                return callee.apply(object, arguments);
             }
         };
     };
