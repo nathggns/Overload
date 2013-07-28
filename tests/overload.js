@@ -109,5 +109,21 @@ describe('overload', function() {
 
             i.should.eql(3);
         });
+
+        it('should set the context equal to the object', function() {
+            var obj = {
+                rand: Math.random()
+            };
+
+            var res;
+
+            overload.add(obj, 'work', true, function() {
+                res = this.rand || false;
+            });
+
+            obj.work();
+
+            res.should.eql(obj.rand);
+        });
     });
 });

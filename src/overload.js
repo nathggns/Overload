@@ -77,11 +77,6 @@
 
             var callee;
 
-            if (!condition) {
-                var stack = new Error().stack;
-                console.log(stack);
-            }
-
             /**
              * If the condition passes, we want to apply the method
              */
@@ -97,7 +92,7 @@
              * if the condition failed and we're the first method in the chain
              */
             if (typeof callee === 'function') {
-                return callee.apply(method, arguments);
+                return callee.apply(object, arguments);
             }
         };
     };
