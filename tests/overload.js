@@ -125,5 +125,23 @@ describe('overload', function() {
 
             res.should.eql(obj.rand);
         });
+
+        it('should set the context equal to the object even with prototypes', function() {
+            var Obj = function() {
+                this.rand = Math.random();
+            };
+
+            var res;
+
+            overload.add(Obj.prototype, 'work', true, function() {
+                res = this.rand || false;
+            });
+
+            var obj = new Obj();
+
+            obj.work();
+
+            res.should.eql(obj.rand);
+        });
     });
 });
