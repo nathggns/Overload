@@ -77,11 +77,6 @@
 
             var callee;
 
-            if (!condition) {
-                var stack = new Error().stack;
-                console.log(stack);
-            }
-
             /**
              * If the condition passes, we want to apply the method
              */
