@@ -2,7 +2,7 @@
   "name": "node-overload",
   "title": "overload",
   "description": "Overload methods based on argument length or arbitrary conditions",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "repository": {
     "type": "git",
     "url": "git@github.com:nathggns/Overload.git"
