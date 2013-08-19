@@ -63,6 +63,18 @@ overload.add(Person.prototype, 'speak', function(method, args) {
     console.log('I\'m too busy for this!');
 });
 
+// We can also do type shortcuts
+var Present = function() {};
+var Coin = function() {};
+
+overload.add(Person.prototype, 'speak', [Present], function() {
+    console.log('Bah, humbug!'); 
+});
+
+overload.add(Person.prototype, 'speak', [Coin], function() {
+    console.log('Ooh, money!');
+});
+
 var scrooge = new Person();
 
 scrooge.speak();
@@ -71,11 +83,17 @@ scrooge.speak();
 scrooge.speak('christmas');
 // Bah, humbug!
 
-scrooge.speak('money');
-// money
+scrooge.speak('Ooh, money');
+// Ooh, money
 
 scrooge.speak('money', 'fame');
 // I'm too busy for this!
+
+scrooge.speak(new Present());
+// Bah, humbug
+
+scrooge.speak(new Coin());
+// Ooh, money!
 ```
 
 ### Arity
@@ -118,6 +136,20 @@ overload.add(obj, 'method', two_or_more, function() {
     // ...
 });
 ```
+
+### Types
+
+As well as a being able to pass an array of types instead of a condition function, as demonstrated in "Usage", you can also generate a condition function from a type-array, like so.
+
+```js
+var func = overload.types(['string']);
+
+overload.add(obj, 'method', func, function(str) {
+    // str is string
+});
+```
+
+**Warning:** As JS has type-specific objects, you'll be able to look for them use the `String` constructor. However, using a `String` constructor in the type array will not accept a string created using the string literals, i.e `"string"`. 
 
 ### Getting a clean version of Overload
 
