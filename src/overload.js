@@ -202,4 +202,40 @@
         return overload.apply(this, args);
     });
 
+    /**
+     * Handle calls where passing an array of types
+     */
+    overload(exports, 'add', function(method, args) {
+        /**
+         * @todo Maybe make this a better "is array" detector.
+         *       Use _.isArray? 
+         */
+        return typeof args[2] === 'object' &&
+                typeof args[2].length !== 'undefined';
+    }, function() {
+        var args = arguments;
+        var types = arguments[2];
+
+        args[2] = function(method, args) {
+
+            var res = true;
+
+            types.forEach(function(type, i) {
+                if (typeof type === 'function') {
+                    if (!(args[i] instanceof type)) {
+                        res = false;
+                    }
+                } else {
+                    if (typeof args[i] !== type) {
+                        res = false;
+                    }
+                }
+            });
+
+            return res;
+        };
+
+        return overload.apply(this, args);
+    });
+
 }));
