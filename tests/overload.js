@@ -145,8 +145,6 @@ describe('overload', function() {
         });
 
         it('should work with using objects as type shortcuts', function() {
-
-            // @todo Use bitmasks
             var i = 0;
             var obj = {
                 work: function() {

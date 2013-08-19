@@ -133,6 +133,39 @@
     };
 
     /**
+     * Generate a condition function that checks types
+     * @param  {Array}    types Types to check
+     * @return {Function}       Condition function
+     */
+    var types = exports.types = function(types) {
+        return function(method, args) {
+            /**
+             * Shortcut the relatively intensive task
+             * of comparing types by just checking the length
+             * first. Will find negatives much more quickly
+             */
+            var res = args.length === types.length;
+
+            if (res) {
+
+                types.forEach(function(type, i) {
+                    if (typeof type === 'function') {
+                        if (!(args[i] instanceof type)) {
+                            res = false;
+                        }
+                    } else {
+                        if (typeof args[i] !== type) {
+                            res = false;
+                        }
+                    }
+                });
+            }
+
+            return res;
+        };
+    };
+
+    /**
      * If condition is simply a value, we'll wrap that value in a function
      */
     overload(exports, 'add', function(method, args) {
@@ -208,32 +241,14 @@
     overload(exports, 'add', function(method, args) {
         /**
          * @todo Maybe make this a better "is array" detector.
-         *       Use _.isArray? 
+         *       Use Array.isArray. (ES5 I think?)
          */
         return typeof args[2] === 'object' &&
                 typeof args[2].length !== 'undefined';
     }, function() {
         var args = arguments;
-        var types = arguments[2];
 
-        args[2] = function(method, args) {
-
-            var res = true;
-
-            types.forEach(function(type, i) {
-                if (typeof type === 'function') {
-                    if (!(args[i] instanceof type)) {
-                        res = false;
-                    }
-                } else {
-                    if (typeof args[i] !== type) {
-                        res = false;
-                    }
-                }
-            });
-
-            return res;
-        };
+        args[2] = types(arguments[2]);
 
         return overload.apply(this, args);
     });
